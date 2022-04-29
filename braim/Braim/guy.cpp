@@ -15,8 +15,6 @@ void Guy::draw(Graphics &g)
 
 void Guy::update(Graphics &g)
 {
-
-
     if(g.isKeyPressed(Key::Right) || g.isKeyPressed('D')) {
         velocity.x = 5;
     }
@@ -24,7 +22,14 @@ void Guy::update(Graphics &g)
         velocity.x = -5;
     }
     else{
-        velocity = velocity + acceleration;
+        velocity.x = 0;
+    }
+    if(velocity.y >= gravity ){
+        acceleration.y = 0;
+    }
+    else{
+        acceleration.y = 0.05;
     }
     location = location + velocity;
+    velocity = velocity + acceleration;
 }

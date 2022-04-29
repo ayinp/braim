@@ -1,7 +1,10 @@
 #include <iostream>
-#include "graphics.h"
+#include <memory>
 #include <iomanip>
+#include "graphics.h"
 #include "guy.h"
+#include "ground.h"
+#include "world.h"
 using namespace std;
 using namespace mssm;
 
@@ -32,11 +35,15 @@ int main()
 {
     Graphics g("MyProgram", 1024, 768);
 
-    Guy braim(6, 50, 50, {100, 100});
+    Guy brian(6, 50, 50, {100,100});
+    Ground floor(g.width(), 100, {0, g.height() - 100});
+    World world(&brian);
+    world.objects.push_back(make_unique<Ground>(g.width(), 100, {0, g.height()-100});
 
     while (g.draw()) {
-        braim.draw(g);
-        braim.update(g);
+
+        world.draw(g);
+        world.update(g);
 
         if (g.isKeyPressed(Key::ESC)) {
             break;

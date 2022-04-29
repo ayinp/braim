@@ -10,4 +10,10 @@ void PhysicsObject::update(mssm::Graphics& /*g*/)
 {
     location = location + velocity;
     velocity = velocity + acceleration;
+    if(velocity.y >= gravity ){
+        acceleration.y = 0;
+    }
+    else{
+        acceleration.y = 0.05;
+    }
 }

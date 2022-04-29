@@ -7,6 +7,7 @@ class PhysicsObject
 public:
     int width;
     int height;
+    int gravity = 5;
     Vec2d velocity = {0, 0};
     Vec2d acceleration = {0, 0.05};
     Vec2d location;
