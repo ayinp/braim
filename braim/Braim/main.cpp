@@ -1,7 +1,7 @@
 #include <iostream>
 #include "graphics.h"
 #include <iomanip>
-
+#include "guy.h"
 using namespace std;
 using namespace mssm;
 
@@ -32,13 +32,11 @@ int main()
 {
     Graphics g("MyProgram", 1024, 768);
 
+    Guy braim(6, 50, 50, {100, 100});
+
     while (g.draw()) {
-
-        g.polygon({{100, 200}, {20, 500}, {300, 10}}, GREEN, BLUE);
-
-        g.text({300,300}, 20, "Hello World");
-
-        g.points({{5,5},{10,10},{20,20},{50,50}, {100,100}}, YELLOW);
+        braim.draw(g);
+        braim.update(g);
 
         if (g.isKeyPressed(Key::ESC)) {
             break;

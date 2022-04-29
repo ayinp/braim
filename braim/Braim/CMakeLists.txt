@@ -10,7 +10,7 @@ cmake_minimum_required(VERSION 3.13.0)
 #   sudo apt-get install freeglut3-dev
 
 # HEY!  Want to change the name of the project/executable?  Do it on the next line
-project(graphics2022 LANGUAGES CXX C)
+project(braim LANGUAGES CXX C)
 
 set(INCLUDE_SOUND FALSE)    # TRUE to include audio/sound support
 set(INCLUDE_SERIAL FALSE)   # TRUE to include serial port support
@@ -42,6 +42,10 @@ endif()
 add_executable(${PROJECT_NAME} ${ADD_EX_EXTRA}
     # Hey!  Add additional c, cpp, h files here:
     main.cpp
+    guy.cpp
+    guy.h
+    physicsobject.cpp
+    physicsobject.h
 )
 
 #set(CMAKE_THREAD_PREFER_PTHREAD TRUE)
