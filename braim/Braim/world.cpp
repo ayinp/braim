@@ -1,4 +1,5 @@
 #include "world.h"
+#include <iostream>
 using namespace std;
 using namespace mssm;
 
@@ -15,26 +16,25 @@ void World::collisions()
     //make this better oneday
     for(int i = 0; i < objects.size(); i++){
         //thing to right
-        if(brian->location.x >= objects[i]->location.x
-                && (brian->location.y - brian->height) < objects[i]->location.y ){
+        if(brian->location.x + brian->width > objects[i]->location.x
+                && brian->location.y - brian->height >= objects[i]->location.y
+                && brian->location.y <= objects[i]->location.y - objects[i]->height){
             brian->velocity.x = 0;
+            brian->location.x = objects[i]->location.x - brian->width;
         }
         //thing to left
-        if(brian->location.x <= objects[i]->location.x + objects[i]->width
-                && (brian->location.y - brian->height) < objects[i]->location.y ){
+        else if(brian->location.x < objects[i]->location.x + objects[i]->width
+                && brian->location.y - brian->height >= objects[i]->location.y
+                && brian->location.y <= objects[i]->location.y - objects[i]->height){
             brian->velocity.x = 0;
-        }
-        //thing above
-        if(brian->location.y + brian->height >= objects[i]->location.y
-                && (brian->location.x > objects[i]->location.x &&
-                    brian->location.x - brian->width < objects[i]->location.x  + objects[i]->width)){
-            brian->velocity.y = 0;
+            brian->location.x = objects[i]->location.x + objects[i]->width;
         }
         //thing below
-        if(brian->location.y <= objects[i]->location.y + objects[i]->height
-                && (brian->location.x > objects[i]->location.x &&
-                    brian->location.x - brian->width < objects[i]->location.x  + objects[i]->width)){
+        else if(brian->location.y + brian->height > objects[i]->location.y
+                && brian->location.x <= objects[i]->location.x + objects[i]->width
+                && brian->location.x + brian->width >= objects[i]->location.x){
             brian->velocity.y = 0;
+            brian->location.y = objects[i]->location.y - brian->height;
         }
     }
 }

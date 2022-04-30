@@ -14,7 +14,7 @@ void obstacle::draw(Graphics &g)
     g.ellipse(location, 5, 5, BLUE, BLUE);
 }
 
-void obstacle::update(Graphics &g)
+void obstacle::update(Graphics&)
 {
 
 }

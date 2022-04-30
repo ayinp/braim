@@ -3,7 +3,7 @@
 #include <iomanip>
 #include "graphics.h"
 #include "guy.h"
-#include "ground.h"
+#include "obstacle.h"
 #include "world.h"
 using namespace std;
 using namespace mssm;
@@ -36,9 +36,9 @@ int main()
     Graphics g("MyProgram", 1024, 768);
 
     Guy brian(6, 50, 50, {100,100});
-    Ground floor(g.width(), 100, {0, g.height() - 100});
     World world(&brian);
-    world.objects.push_back(make_unique<Ground>(g.width(), 100, {0, g.height()-100});
+    world.objects.push_back(make_unique<obstacle>(g.width(), 100, Vec2d{0, g.height()-100}));
+    world.objects.push_back(make_unique<obstacle>(100, 100, Vec2d{(g.width() - 100)/2, g.height()-200}));
 
     while (g.draw()) {
 

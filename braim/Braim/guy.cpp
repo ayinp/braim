@@ -10,7 +10,8 @@ Guy::Guy(int health, int width, int height, Vec2d location)
 
 void Guy::draw(Graphics &g)
 {
-    g.ellipse(location, width, height, PURPLE, PURPLE);
+    g.rect(location, width, height, PURPLE, PURPLE);
+
 }
 
 void Guy::update(Graphics &g)

@@ -48,8 +48,8 @@ add_executable(${PROJECT_NAME} ${ADD_EX_EXTRA}
     physicsobject.h
     world.cpp
     world.h
-    ground.cpp
-    ground.h
+    obstacle.cpp
+    obstacle.h
 )
 
 #set(CMAKE_THREAD_PREFER_PTHREAD TRUE)
