@@ -15,27 +15,32 @@ void World::collisions()
 {
     //make this better oneday
     for(int i = 0; i < objects.size(); i++){
+        Vec2d oldAcc = brian->acceleration;
         //thing to right
         if(brian->location.x + brian->width > objects[i]->location.x
-                && brian->location.y - brian->height >= objects[i]->location.y
-                && brian->location.y <= objects[i]->location.y - objects[i]->height){
-            brian->velocity.x = 0;
-            brian->location.x = objects[i]->location.x - brian->width;
+
+                && brian->location.y + brian->height <= objects[i]->location.y
+                && brian->location.y >= objects[i]->location.y + objects[i]->height){
+
+            cout << brian->location.x + brian->width << "  " << objects[i]->location.x << endl;
+            brian->velocity.x = -(brian->velocity.x);
+            brian->acceleration.x = -0.1;
         }
         //thing to left
-        else if(brian->location.x < objects[i]->location.x + objects[i]->width
+        if(brian->location.x < objects[i]->location.x + objects[i]->width
                 && brian->location.y - brian->height >= objects[i]->location.y
                 && brian->location.y <= objects[i]->location.y - objects[i]->height){
-            brian->velocity.x = 0;
-            brian->location.x = objects[i]->location.x + objects[i]->width;
+            brian->velocity.x = -0.5*(brian->velocity.x);
+            brian->acceleration.x = -0.1;
         }
         //thing below
-        else if(brian->location.y + brian->height > objects[i]->location.y
+        if(brian->location.y + brian->height > objects[i]->location.y
                 && brian->location.x <= objects[i]->location.x + objects[i]->width
                 && brian->location.x + brian->width >= objects[i]->location.x){
-            brian->velocity.y = 0;
-            brian->location.y = objects[i]->location.y - brian->height;
+            brian->velocity.y = -0.5*(brian->velocity.y);
+            brian->acceleration.y = -0.1;
         }
+        brian->acceleration = oldAcc;
     }
 }
 
