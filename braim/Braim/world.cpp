@@ -30,12 +30,14 @@ void World::collisions(Graphics& g)
                 //thing to right
                 if(brian->velocity.x > 0){
                     brian->location.x = objects[i]->left() - brian->width - 1;
+                    //this is what makes him vibrate, without it he sinks in
                     brian->velocity.x = 0;
                 }
                 //thing to left
                 if(brian->velocity.x < 0){
                     brian->location.x = objects[i]->right() + 1;
-                    brian->velocity.x = 0;
+                    //this is what makes him vibrate, without it he sinks in
+//                    brian->velocity.x = 0;
                 }
             }
             //bottom collision (or ==)

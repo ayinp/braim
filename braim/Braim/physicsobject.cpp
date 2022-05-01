@@ -23,7 +23,7 @@ void PhysicsObject::update(mssm::Graphics& /*g*/)
 
 bool PhysicsObject::overlaps(const PhysicsObject &other, double margin) const
 {
-    if(right() + margin > other.left() && left() - margin < other.right() && bottom() + margin > other.top() && top() - margin < other.bottom()){
+    if(right() + margin >= other.left() && left() - margin <= other.right() && bottom() + margin >= other.top() && top() - margin <= other.bottom()){
         return true;
     }
     return false;
