@@ -21,21 +21,21 @@ void PhysicsObject::update(mssm::Graphics& /*g*/)
     }
 }
 
-bool PhysicsObject::overlaps(const PhysicsObject &other) const
+bool PhysicsObject::overlaps(const PhysicsObject &other, double margin) const
 {
-    if(right() > other.left() && left() < other.right() && bottom() > other.top() && top() < other.bottom()){
+    if(right() + margin > other.left() && left() - margin < other.right() && bottom() + margin > other.top() && top() - margin < other.bottom()){
         return true;
     }
     return false;
 
 }
 
-double PhysicsObject::xOverLap(const PhysicsObject &other) const
+double PhysicsObject::xOverLap(const PhysicsObject &other, double margin) const
 {
-    return min(right(), other.right()) - max(left(), other.left());
+    return min(right()-margin, other.right()) - max(left()+margin, other.left());
 }
 
-double PhysicsObject::yOverLap(const PhysicsObject &other) const
+double PhysicsObject::yOverLap(const PhysicsObject &other, double margin) const
 {
-    return min(bottom(), other.bottom()) - max(top(), other.top());
+    return min(bottom()-margin, other.bottom()) - max(top()+margin, other.top());
 }

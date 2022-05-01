@@ -14,6 +14,8 @@ public:
     void collisions(mssm::Graphics &g);
     void draw(mssm::Graphics& g);
     void update(mssm::Graphics& g);
+    void handleEvent(mssm::Event e);
+
 };
 
 #endif // WORLD_H

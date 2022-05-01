@@ -19,46 +19,65 @@ World::World(Guy* brian)
 
 void World::collisions(Graphics& g)
 {
+    bool inContact = false;
     for(int i = 0; i < objects.size(); i++){
-        Vec2d oldAcc = brian->acceleration;
         if(brian->overlaps(*objects[i])){
-            g.cout << "collides with: " << (long long)objects[i].get() << endl;
+            g.cout << "Overlap" << endl;
             double xOL = brian->xOverLap(*objects[i]);
             double yOL = brian->yOverLap(*objects[i]);
             //side collision
             if(xOL < yOL){
                 //thing to right
                 if(brian->velocity.x > 0){
-                    brian->location.x = objects[i]->left() - brian->width;
+                    //  g.cerr << "Thing to right" << endl;
+                    brian->location.x = objects[i]->left() - brian->width - 1;
                 }
                 //thing to left
                 if(brian->velocity.x < 0){
-                    brian->location.x = objects[i]->right();
+                    brian->location.x = objects[i]->right() + 1;
                 }
             }
-            //top/bottom collision (or ==)
+            //bottom collision (or ==)
             else{
-                //thing top
-                if(brian->velocity.y < 0){
-                    brian->location.y = objects[i]->bottom();
-                }
                 //thing bottom
                 if(brian->velocity.y > 0){
-                    brian->location.y = objects[i]->top() - brian->height;
+                    brian->velocity.y = 0;
+                    brian->location.y = objects[i]->top() - brian->height - 1;
+                    inContact = true;
+                    brian->numJumps = 0;
                 }
             }
         }
+        else if(brian->overlaps(*objects[i], 1.1)){
+            if(brian->overlaps(*objects[i])){
+                double xOL = brian->xOverLap(*objects[i]);
+                double yOL = brian->yOverLap(*objects[i]);
+                //side collision
+                if(xOL < yOL){
+                }
+                //bottom collision (or ==)
+                else{
+                    brian->velocity.y = 0;
+                    inContact = true;
 
-        brian->acceleration = oldAcc;
+                }
+            }
+        }
     }
+    brian->isOnGround = inContact;
+
+    g.cout << (brian->isOnGround ? "OnGround" : "Not on ground") << endl;
+    g.cout << "XVel: " << brian->velocity.x << endl;
+    g.cout << "YVel: " << brian->velocity.y << endl;
+
 }
 
 void World::draw(Graphics &g)
 {
-    brian->draw(g);
     for(int i = 0; i < objects.size(); i++){
         objects[i]->draw(g);
     }
+    brian->draw(g);
 }
 
 void World::update(Graphics &g)
@@ -68,4 +87,9 @@ void World::update(Graphics &g)
         objects[i]->update(g);
     }
     collisions(g);
+}
+
+void World::handleEvent(Event e)
+{
+    brian->handleEvent(e);
 }

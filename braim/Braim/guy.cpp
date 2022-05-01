@@ -16,16 +16,33 @@ void Guy::draw(Graphics &g)
 
 void Guy::update(Graphics &g)
 {
+    //right movement
     if(g.isKeyPressed(Key::Right) || g.isKeyPressed('D')) {
-        velocity.x = 5;
+        acceleration.x = 0.3;
+        if(velocity.x >= 5){
+            acceleration.x = 0;
+            velocity.x = 5;
+        }
     }
+    //left movement
     else if(g.isKeyPressed(Key::Left) || g.isKeyPressed('A')){
-        velocity.x = -5;
+        acceleration.x = -0.3;
+        if(velocity.x <= -5){
+            acceleration.x = 0;
+            velocity.x = -5;
+        }
     }
+    //no input left or rihgt
     else{
-        velocity.x = 0;
+        acceleration.x = 0;
+        velocity.x *= 0.85;
+        if(abs(velocity.x) < 1){
+            velocity.x = 0;
+        }
     }
-    if(velocity.y >= maxVelGrav ){
+    //jump is in event handler
+    //no go above terminal velocity
+    if(isOnGround || velocity.y >= maxVelGrav ){
         acceleration.y = 0;
     }
     else{
@@ -33,4 +50,29 @@ void Guy::update(Graphics &g)
     }
     location = location + velocity;
     velocity = velocity + acceleration;
+}
+
+void Guy::handleEvent(Event e)
+{
+    switch (e.evtType) {
+    case EvtType::KeyPress:
+        //jump
+        if(e.arg == ' ' && numJumps < 2){
+            velocity.y = -4.5;
+            numJumps++;
+            //jumps are set back to 0 if land on ground in collisions method on world)
+
+        }
+        break;
+    case EvtType::KeyRelease:
+        break;
+    case EvtType::MouseMove:
+        break;
+    case EvtType::MousePress:
+        break;
+    case EvtType::MouseRelease:
+        break;
+    default:
+        break;
+    }
 }

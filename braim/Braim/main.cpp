@@ -50,6 +50,7 @@ int main()
         }
 
         for (const Event& e : g.events()) {
+            world.handleEvent(e);
             switch (e.evtType) {
             case EvtType::KeyPress:
                 break;
