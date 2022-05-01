@@ -25,11 +25,11 @@ void Guy::update(Graphics &g)
     else{
         velocity.x = 0;
     }
-    if(velocity.y >= gravity ){
+    if(velocity.y >= maxVelGrav ){
         acceleration.y = 0;
     }
     else{
-        acceleration.y = 0.05;
+        acceleration.y = gravity;
     }
     location = location + velocity;
     velocity = velocity + acceleration;

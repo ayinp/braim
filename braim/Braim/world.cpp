@@ -11,35 +11,44 @@ World::World(Guy* brian)
 
 }
 
-void World::collisions()
+
+
+//detect any collision -- done
+//determine top/bottom or side by looking at overlap
+//determine which side or top/bottom
+
+void World::collisions(Graphics& g)
 {
-    //make this better oneday
     for(int i = 0; i < objects.size(); i++){
         Vec2d oldAcc = brian->acceleration;
-        //thing to right
-        if(brian->location.x + brian->width > objects[i]->location.x
+        if(brian->overlaps(*objects[i])){
+            g.cout << "collides with: " << (long long)objects[i].get() << endl;
+            double xOL = brian->xOverLap(*objects[i]);
+            double yOL = brian->yOverLap(*objects[i]);
+            //side collision
+            if(xOL < yOL){
+                //thing to right
+                if(brian->velocity.x > 0){
+                    brian->location.x = objects[i]->left() - brian->width;
+                }
+                //thing to left
+                if(brian->velocity.x < 0){
+                    brian->location.x = objects[i]->right();
+                }
+            }
+            //top/bottom collision (or ==)
+            else{
+                //thing top
+                if(brian->velocity.y < 0){
+                    brian->location.y = objects[i]->bottom();
+                }
+                //thing bottom
+                if(brian->velocity.y > 0){
+                    brian->location.y = objects[i]->top() - brian->height;
+                }
+            }
+        }
 
-                && brian->location.y + brian->height <= objects[i]->location.y
-                && brian->location.y >= objects[i]->location.y + objects[i]->height){
-
-            cout << brian->location.x + brian->width << "  " << objects[i]->location.x << endl;
-            brian->velocity.x = -(brian->velocity.x);
-            brian->acceleration.x = -0.1;
-        }
-        //thing to left
-        if(brian->location.x < objects[i]->location.x + objects[i]->width
-                && brian->location.y - brian->height >= objects[i]->location.y
-                && brian->location.y <= objects[i]->location.y - objects[i]->height){
-            brian->velocity.x = -0.5*(brian->velocity.x);
-            brian->acceleration.x = -0.1;
-        }
-        //thing below
-        if(brian->location.y + brian->height > objects[i]->location.y
-                && brian->location.x <= objects[i]->location.x + objects[i]->width
-                && brian->location.x + brian->width >= objects[i]->location.x){
-            brian->velocity.y = -0.5*(brian->velocity.y);
-            brian->acceleration.y = -0.1;
-        }
         brian->acceleration = oldAcc;
     }
 }
@@ -58,5 +67,5 @@ void World::update(Graphics &g)
     for(int i = 0; i < objects.size(); i++){
         objects[i]->update(g);
     }
-    collisions();
+    collisions(g);
 }

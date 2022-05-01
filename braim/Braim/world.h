@@ -11,7 +11,7 @@ public:
     Guy* brian;
 public:
     World(Guy* brian);
-    void collisions();
+    void collisions(mssm::Graphics &g);
     void draw(mssm::Graphics& g);
     void update(mssm::Graphics& g);
 };
