@@ -29,12 +29,13 @@ void World::collisions(Graphics& g)
             if(xOL < yOL){
                 //thing to right
                 if(brian->velocity.x > 0){
-                    //  g.cerr << "Thing to right" << endl;
                     brian->location.x = objects[i]->left() - brian->width - 1;
+                    brian->velocity.x = 0;
                 }
                 //thing to left
                 if(brian->velocity.x < 0){
                     brian->location.x = objects[i]->right() + 1;
+                    brian->velocity.x = 0;
                 }
             }
             //bottom collision (or ==)
@@ -51,7 +52,7 @@ void World::collisions(Graphics& g)
 
             double xOL = brian->xOverLap(*objects[i]);
             double yOL = brian->yOverLap(*objects[i]);
-            //bottom collision (or ==)
+            //bottom collision (or top)
             if(xOL > yOL){
                 if(brian->velocity.y >= 0){
                     brian->velocity.y = 0;
@@ -59,6 +60,10 @@ void World::collisions(Graphics& g)
 
                 }
             }
+            //check overlap on right side vs overlap on left side,
+            // for overlap on right side only move if vel is neg
+            // vice versa for overlap on left side
+
         }
 
     }
