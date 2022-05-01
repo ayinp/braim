@@ -44,27 +44,28 @@ void World::collisions(Graphics& g)
                     brian->velocity.y = 0;
                     brian->location.y = objects[i]->top() - brian->height - 1;
                     inContact = true;
-                    brian->numJumps = 0;
                 }
             }
         }
         else if(brian->overlaps(*objects[i], 1.1)){
-            if(brian->overlaps(*objects[i])){
-                double xOL = brian->xOverLap(*objects[i]);
-                double yOL = brian->yOverLap(*objects[i]);
-                //side collision
-                if(xOL < yOL){
-                }
-                //bottom collision (or ==)
-                else{
+
+            double xOL = brian->xOverLap(*objects[i]);
+            double yOL = brian->yOverLap(*objects[i]);
+            //bottom collision (or ==)
+            if(xOL > yOL){
+                if(brian->velocity.y >= 0){
                     brian->velocity.y = 0;
                     inContact = true;
 
                 }
             }
         }
+
     }
     brian->isOnGround = inContact;
+    if(brian->isOnGround){
+        brian->numJumps = 0;
+    }
 
     g.cout << (brian->isOnGround ? "OnGround" : "Not on ground") << endl;
     g.cout << "XVel: " << brian->velocity.x << endl;
@@ -82,11 +83,11 @@ void World::draw(Graphics &g)
 
 void World::update(Graphics &g)
 {
+    collisions(g);
     brian->update(g);
     for(int i = 0; i < objects.size(); i++){
         objects[i]->update(g);
     }
-    collisions(g);
 }
 
 void World::handleEvent(Event e)
