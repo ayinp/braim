@@ -8,12 +8,12 @@ obstacle::obstacle(int width, int height, Vec2d location)
 
 }
 
-void obstacle::draw(Graphics &g)
+void obstacle::draw(Camera &c)
 {
-    g.rect(location, width, height, {33,116,2}, {33,116,2});
+    c.rect(location, width, height, {33,116,2}, {33,116,2});
 }
 
-void obstacle::update(Graphics&)
+void obstacle::update(Camera &)
 {
 
 }

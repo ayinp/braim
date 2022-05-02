@@ -10,8 +10,8 @@ public:
 
 public:
     obstacle(int width, int height, Vec2d location);
-    virtual void draw(mssm::Graphics& g) override;
-    virtual void update(mssm::Graphics&) override;
+    virtual void draw(Camera &c) override;
+    virtual void update(Camera &) override;
 };
 
 #endif // GROUND_H

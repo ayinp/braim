@@ -9,7 +9,7 @@ PhysicsObject::PhysicsObject(int width, int height, Vec2d location)
 
 }
 
-void PhysicsObject::update(mssm::Graphics& /*g*/)
+void PhysicsObject::update(Camera & /*c*/)
 {
     location = location + velocity;
     velocity = velocity + acceleration;

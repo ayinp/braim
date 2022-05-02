@@ -8,39 +8,33 @@ Guy::Guy(int totalHealth, int width, int height, Vec2d location)
     health = totalHealth;
 }
 
-void Guy::draw(Graphics &g)
+void Guy::draw(Camera& c)
 {
     int barConstant = 50;
     //guy
-    g.rect(location, width, height, PURPLE, PURPLE);
+    c.rect(location, width, height, PURPLE, PURPLE);
     //health bar
-    g.rect({g.width() - health*barConstant - barConstant, barConstant}, health*barConstant, 20, BLACK, GREEN);
-    g.rect({g.width() - health*barConstant - barConstant, barConstant}, totalHealth*barConstant, 20, BLACK);
+    c.rect({c.width() - health*barConstant - barConstant, barConstant}, health*barConstant, 20, BLACK, GREEN);
+    c.rect({c.width() - health*barConstant - barConstant, barConstant}, totalHealth*barConstant, 20, BLACK);
 
     if(inContactB){
-        g.rect({left(), bottom()}, width, 3, YELLOW, YELLOW);
+        c.rect({left(), bottom()}, width, 3, YELLOW, YELLOW);
     }
     if(inContactT){
-        g.rect({left(), top()}, width, 3, YELLOW, YELLOW);
+        c.rect({left(), top()}, width, 3, YELLOW, YELLOW);
     }
     if(inContactL){
-        g.rect({left(), top()}, 3, height, YELLOW, YELLOW);
+        c.rect({left(), top()}, 3, height, YELLOW, YELLOW);
     }
     if(inContactR){
-        g.rect({right(), top()}, 3, height, YELLOW, YELLOW);
+        c.rect({right(), top()}, 3, height, YELLOW, YELLOW);
     }
-
-    g.cout << "XVel: " << velocity.x << endl;
-    g.cout << "YVel: " << velocity.y << endl;
-    g.cout << "XAcc: " << acceleration.x << endl;
-    g.cout << "YAcc: " << acceleration.y << endl;
-
 }
 
-void Guy::update(Graphics &g)
+void Guy::update(Camera& c)
 {
     //right movement
-    if(g.isKeyPressed(Key::Right) || g.isKeyPressed('D')) {
+    if(c.isKeyPressed(Key::Right) || c.isKeyPressed('D')) {
 
         acceleration.x = 0.3;
 
@@ -50,7 +44,7 @@ void Guy::update(Graphics &g)
         }
     }
     //left movement
-    else if(g.isKeyPressed(Key::Left) || g.isKeyPressed('A')){
+    else if(c.isKeyPressed(Key::Left) || c.isKeyPressed('A')){
 
         acceleration.x = -0.3;
 

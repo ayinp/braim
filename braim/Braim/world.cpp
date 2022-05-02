@@ -17,7 +17,7 @@ World::World(Guy* brian)
 //determine top/bottom or side by looking at overlap
 //determine which side or top/bottom
 
-void World::collisions(Graphics& g)
+void World::collisions()
 {
     brian->inContactB = false;
     brian->inContactT = false;
@@ -25,7 +25,6 @@ void World::collisions(Graphics& g)
     brian->inContactL = false;
     for(int i = 0; i < objects.size(); i++){
         if(brian->overlaps(*objects[i])){
-            g.cout << "Overlap" << endl;
             double xOL = brian->xOverLap(*objects[i]);
             double yOL = brian->yOverLap(*objects[i]);
             //side collision
@@ -96,20 +95,20 @@ void World::collisions(Graphics& g)
 
 }
 
-void World::draw(Graphics &g)
+void World::draw(Camera& c)
 {
     for(int i = 0; i < objects.size(); i++){
-        objects[i]->draw(g);
+        objects[i]->draw(c);
     }
-    brian->draw(g);
+    brian->draw(c);
 }
 
-void World::update(Graphics &g)
+void World::update(Camera& c)
 {
-    collisions(g);
-    brian->update(g);
+    collisions();
+    brian->update(c);
     for(int i = 0; i < objects.size(); i++){
-        objects[i]->update(g);
+        objects[i]->update(c);
     }
 }
 

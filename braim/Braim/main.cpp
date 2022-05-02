@@ -35,6 +35,8 @@ int main()
 {
     Graphics g("MyProgram", 1024, 768);
 
+    Camera c(g);
+
     Guy brian(6, 50, 50, {100,100});
     World world(&brian);
     world.objects.push_back(make_unique<obstacle>(g.width(), 100, Vec2d{0, g.height()-100}));
@@ -43,8 +45,10 @@ int main()
 
     while (g.draw()) {
 
-        world.draw(g);
-        world.update(g);
+        c.offset = Vec2d{g.width()/2, g.height()/2} - (brian.location);
+
+        world.draw(c);
+        world.update(c);
 
         if (g.isKeyPressed(Key::ESC)) {
             break;

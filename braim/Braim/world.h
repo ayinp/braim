@@ -3,6 +3,7 @@
 #include <memory>
 #include "guy.h"
 #include "graphics.h"
+#include "camera.h"
 
 class World
 {
@@ -11,9 +12,9 @@ public:
     Guy* brian;
 public:
     World(Guy* brian);
-    void collisions(mssm::Graphics &g);
-    void draw(mssm::Graphics& g);
-    void update(mssm::Graphics& g);
+    void collisions();
+    void draw(Camera& c);
+    void update(Camera& c);
     void handleEvent(mssm::Event e);
 
 };
