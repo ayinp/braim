@@ -10,8 +10,7 @@ obstacle::obstacle(int width, int height, Vec2d location)
 
 void obstacle::draw(Graphics &g)
 {
-    g.rect(location, width, height, GREEN, GREEN);
-    g.ellipse(location, 5, 5, BLUE, BLUE);
+    g.rect(location, width, height, {33,116,2}, {33,116,2});
 }
 
 void obstacle::update(Graphics&)

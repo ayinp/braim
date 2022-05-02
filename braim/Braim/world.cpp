@@ -19,7 +19,10 @@ World::World(Guy* brian)
 
 void World::collisions(Graphics& g)
 {
-    bool inContact = false;
+    brian->inContactB = false;
+    brian->inContactT = false;
+    brian->inContactR = false;
+    brian->inContactL = false;
     for(int i = 0; i < objects.size(); i++){
         if(brian->overlaps(*objects[i])){
             g.cout << "Overlap" << endl;
@@ -28,55 +31,68 @@ void World::collisions(Graphics& g)
             //side collision
             if(xOL < yOL){
                 //thing to right
-                if(brian->velocity.x > 0){
+                if(brian->location.x < objects[i]->location.x){
                     brian->location.x = objects[i]->left() - brian->width - 1;
-                    //this is what makes him vibrate, without it he sinks in
                     brian->velocity.x = 0;
+                    brian->inContactR = true;
                 }
                 //thing to left
-                if(brian->velocity.x < 0){
+                if(brian->location.x > objects[i]->location.x){
                     brian->location.x = objects[i]->right() + 1;
-                    //this is what makes him vibrate, without it he sinks in
-//                    brian->velocity.x = 0;
+                    brian->inContactL = true;
+                    brian->velocity.x = 0;
                 }
             }
             //bottom collision (or ==)
             else{
                 //thing bottom
-                if(brian->velocity.y > 0){
+                if(brian->location.y < objects[i]->location.y){
                     brian->velocity.y = 0;
                     brian->location.y = objects[i]->top() - brian->height - 1;
-                    inContact = true;
+                    brian->inContactB = true;
+                }
+                //thing top
+                else if(brian->location.y > objects[i]->location.y){
+                    brian->velocity.y = 0;
+                    brian->location.y = objects[i]->bottom() + 1;
+                    brian->inContactT = true;
                 }
             }
         }
+        //contact
         else if(brian->overlaps(*objects[i], 1.1)){
 
             double xOL = brian->xOverLap(*objects[i]);
             double yOL = brian->yOverLap(*objects[i]);
-            //bottom collision (or top)
+            //bottom or top collision
             if(xOL > yOL){
-                if(brian->velocity.y >= 0){
-                    brian->velocity.y = 0;
-                    inContact = true;
+                if(brian->location.y < objects[i]->location.y){
+                    brian->bottomCollision();
 
                 }
-            }
-            //check overlap on right side vs overlap on left side,
-            // for overlap on right side only move if vel is neg
-            // vice versa for overlap on left side
+                else if(brian->location.y > objects[i]->location.y){
+                    brian->topCollision();
+                }
 
+            }
+            //left or right collision (or ==)
+            else{
+                //thing to right
+                if(brian->location.x < objects[i]->location.x){
+                    brian->rightCollision();
+                }
+                //thing to left
+                if(brian->location.x > objects[i]->location.x){
+                    brian->leftCollision();
+                }
+
+            }
         }
 
     }
-    brian->isOnGround = inContact;
-    if(brian->isOnGround){
+    if(brian->inContactB){
         brian->numJumps = 0;
     }
-
-    g.cout << (brian->isOnGround ? "OnGround" : "Not on ground") << endl;
-    g.cout << "XVel: " << brian->velocity.x << endl;
-    g.cout << "YVel: " << brian->velocity.y << endl;
 
 }
 

@@ -2,15 +2,38 @@
 using namespace mssm;
 using namespace std;
 
-Guy::Guy(int health, int width, int height, Vec2d location)
-    :PhysicsObject(width, height, location), health{health}
+Guy::Guy(int totalHealth, int width, int height, Vec2d location)
+    :PhysicsObject(width, height, location), totalHealth{totalHealth}
 {
-
+    health = totalHealth;
 }
 
 void Guy::draw(Graphics &g)
 {
+    int barConstant = 50;
+    //guy
     g.rect(location, width, height, PURPLE, PURPLE);
+    //health bar
+    g.rect({g.width() - health*barConstant - barConstant, barConstant}, health*barConstant, 20, BLACK, GREEN);
+    g.rect({g.width() - health*barConstant - barConstant, barConstant}, totalHealth*barConstant, 20, BLACK);
+
+    if(inContactB){
+        g.rect({left(), bottom()}, width, 3, YELLOW, YELLOW);
+    }
+    if(inContactT){
+        g.rect({left(), top()}, width, 3, YELLOW, YELLOW);
+    }
+    if(inContactL){
+        g.rect({left(), top()}, 3, height, YELLOW, YELLOW);
+    }
+    if(inContactR){
+        g.rect({right(), top()}, 3, height, YELLOW, YELLOW);
+    }
+
+    g.cout << "XVel: " << velocity.x << endl;
+    g.cout << "YVel: " << velocity.y << endl;
+    g.cout << "XAcc: " << acceleration.x << endl;
+    g.cout << "YAcc: " << acceleration.y << endl;
 
 }
 
@@ -18,7 +41,9 @@ void Guy::update(Graphics &g)
 {
     //right movement
     if(g.isKeyPressed(Key::Right) || g.isKeyPressed('D')) {
+
         acceleration.x = 0.3;
+
         if(velocity.x >= 5){
             acceleration.x = 0;
             velocity.x = 5;
@@ -26,7 +51,9 @@ void Guy::update(Graphics &g)
     }
     //left movement
     else if(g.isKeyPressed(Key::Left) || g.isKeyPressed('A')){
+
         acceleration.x = -0.3;
+
         if(velocity.x <= -5){
             acceleration.x = 0;
             velocity.x = -5;
@@ -34,15 +61,24 @@ void Guy::update(Graphics &g)
     }
     //no input left or rihgt
     else{
-        acceleration.x = 0;
-        velocity.x *= 0.85;
-        if(abs(velocity.x) < 1){
-            velocity.x = 0;
+        if(inContactB){
+            acceleration.x = 0;
+            velocity.x *= 0.85;
+            if(abs(velocity.x) < 0.1){
+                velocity.x = 0;
+            }
+        }
+        else{
+            acceleration.x = 0;
+            velocity.x *= 0.97;
+            if(abs(velocity.x) < 0.1){
+                velocity.x = 0;
+            }
         }
     }
     //jump is in event handler
     //no go above terminal velocity
-    if(isOnGround || velocity.y >= maxVelGrav ){
+    if(inContactB || velocity.y >= maxVelGrav ){
         acceleration.y = 0;
     }
     else{
@@ -74,5 +110,37 @@ void Guy::handleEvent(Event e)
         break;
     default:
         break;
+    }
+}
+
+void Guy::topCollision()
+{
+    if(velocity.y <= 0){
+        velocity.y = 0;
+        inContactT = true;
+    }
+}
+
+void Guy::bottomCollision()
+{
+    if(velocity.y >= 0){
+        velocity.y = 0;
+        inContactB = true;
+    }
+}
+
+void Guy::leftCollision()
+{
+    if(velocity.x <= 0){
+        velocity.x = 0;
+        inContactL = true;
+    }
+}
+
+void Guy::rightCollision()
+{
+    if(velocity.x >= 0){
+        velocity.x = 0;
+        inContactR = true;
     }
 }

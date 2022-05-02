@@ -39,6 +39,7 @@ int main()
     World world(&brian);
     world.objects.push_back(make_unique<obstacle>(g.width(), 100, Vec2d{0, g.height()-100}));
     world.objects.push_back(make_unique<obstacle>(100, 100, Vec2d{(g.width() - 100)/2, g.height()-200}));
+    world.objects.push_back(make_unique<obstacle>(100, 100, Vec2d{(g.width() - 100)/2 + 200, g.height()-200 - 100}));
 
     while (g.draw()) {
 
