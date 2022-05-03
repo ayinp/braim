@@ -8,11 +8,18 @@ class PhysicsObject
 public:
     int width;
     int height;
+
     int maxVelGrav = 10;
     static double gravity;
+
     Vec2d velocity = {0, 0};
     Vec2d acceleration = {0, 0.1};
     Vec2d location;
+
+    bool inContactB = false;
+    bool inContactT = false;
+    bool inContactR = false;
+    bool inContactL = false;
 public:
     PhysicsObject(int width, int height, Vec2d location);
     virtual void draw(Camera& c) = 0;

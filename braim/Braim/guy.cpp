@@ -88,7 +88,7 @@ void Guy::handleEvent(Event e)
     case EvtType::KeyPress:
         //jump
         if(e.arg == ' ' && numJumps < 2){
-            velocity.y = -4.5;
+            velocity.y = -11;
             numJumps++;
             //jumps are set back to 0 if land on ground in collisions method on world)
 

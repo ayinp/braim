@@ -5,6 +5,8 @@
 #include "guy.h"
 #include "obstacle.h"
 #include "world.h"
+#include "slime.h"
+
 using namespace std;
 using namespace mssm;
 
@@ -39,13 +41,13 @@ int main()
 
     Guy brian(6, 50, 50, {100,100});
     World world(&brian);
-    world.objects.push_back(make_unique<obstacle>(g.width(), 100, Vec2d{0, g.height()-100}));
-    world.objects.push_back(make_unique<obstacle>(100, 100, Vec2d{(g.width() - 100)/2, g.height()-200}));
-    world.objects.push_back(make_unique<obstacle>(100, 100, Vec2d{(g.width() - 100)/2 + 200, g.height()-200 - 100}));
+    world.obstacles.push_back(make_unique<Obstacle>(g.width(), 100, Vec2d{0, g.height()-100}));
+    world.obstacles.push_back(make_unique<Obstacle>(100, 100, Vec2d{(g.width() - 100)/2, g.height()-200}));
+    world.obstacles.push_back(make_unique<Obstacle>(100, 100, Vec2d{(g.width() - 100)/2 + 200, g.height()-200 - 100}));
 
     while (g.draw()) {
 
-        c.offset = Vec2d{g.width()/2, g.height()/2} - (brian.location);
+        c.offset = Vec2d{g.width()/2, 3*g.height()/5} - (brian.location);
 
         world.draw(c);
         world.update(c);

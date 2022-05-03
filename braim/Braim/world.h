@@ -8,7 +8,11 @@
 class World
 {
 public:
-    std::vector<std::unique_ptr<PhysicsObject>> objects;
+    std::vector<std::unique_ptr<PhysicsObject>> obstacles;
+//    std::vector<std::unique_ptr<PhysicsObject>> monsters;
+//    std::vector<PhysicsObject*> onScreen;
+//    std::vector<PhysicsObject*> monstersOnScreen;
+//    std::vector<PhysicsObject*> obstaclesOnScreen;
     Guy* brian;
 public:
     World(Guy* brian);

@@ -1,7 +1,7 @@
 #include "physicsobject.h"
 using namespace std;
 
-double PhysicsObject::gravity = 0.1;
+double PhysicsObject::gravity = 0.5;
 
 PhysicsObject::PhysicsObject(int width, int height, Vec2d location)
     :width{width}, height{height}, location{location}

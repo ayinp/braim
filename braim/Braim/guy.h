@@ -10,10 +10,6 @@ public:
     int health;
     int totalHealth;
     int numJumps = 0;
-    bool inContactB = false;
-    bool inContactT = false;
-    bool inContactR = false;
-    bool inContactL = false;
 public:
     Guy(int totalHealth, int width, int height, Vec2d location);
     virtual void draw(Camera& c) override;

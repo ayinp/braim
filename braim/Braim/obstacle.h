@@ -4,12 +4,12 @@
 #include "graphics.h"
 
 
-class obstacle : public PhysicsObject
+class Obstacle : public PhysicsObject
 {
 public:
 
 public:
-    obstacle(int width, int height, Vec2d location);
+    Obstacle(int width, int height, Vec2d location);
     virtual void draw(Camera& c) override;
     virtual void update(Camera& c) override;
 };
