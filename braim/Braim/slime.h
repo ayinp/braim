@@ -1,9 +1,8 @@
 #ifndef SLIME_H
 #define SLIME_H
-#include "physicsObject.h"
+#include "Sprite.h"
 
-class Slime : public PhysicsObject
-{
+class Slime : public Sprite {
 public:
     int totalHealth;
     int health;
@@ -16,5 +15,7 @@ public:
     virtual void leftCollision() override;
     virtual void rightCollision() override;
 };
+
+//if overlap < slime width he is over the edge
 
 #endif // SLIME_H

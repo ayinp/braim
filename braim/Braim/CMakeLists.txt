@@ -54,6 +54,8 @@ add_executable(${PROJECT_NAME} ${ADD_EX_EXTRA}
     camera.h
     slime.cpp
     slime.h
+    sprite.cpp
+    sprite.h
 )
 
 #set(CMAKE_THREAD_PREFER_PTHREAD TRUE)

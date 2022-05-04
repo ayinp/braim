@@ -9,7 +9,7 @@ class World
 {
 public:
     std::vector<std::unique_ptr<PhysicsObject>> obstacles;
-    std::vector<std::unique_ptr<PhysicsObject>> monsters;
+    std::vector<std::unique_ptr<Sprite>> monsters;
     Guy* brian;
 public:
     World(Guy* brian);
@@ -19,7 +19,7 @@ public:
     void handleEvent(mssm::Event e);
     void brianObstacleCol(PhysicsObject* o);
     void brianMonsterCol(PhysicsObject* monsters);
-    void monsterObstacleCol(PhysicsObject* obstacles, PhysicsObject* monsters);
+    void monsterObstacleCol(PhysicsObject* obstacles, Sprite* monsters);
 
 };
 

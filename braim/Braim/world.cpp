@@ -38,6 +38,10 @@ void World::collisions()
 
     // check if monsters collide with obstacles
     for(int m = 0; m < monsters.size(); m++){
+        monsters[m]->inContactB = false;
+        monsters[m]->inContactT = false;
+        monsters[m]->inContactR = false;
+        monsters[m]->inContactL = false;
         for(int o = 0; o < obstacles.size(); o++){
             monsterObstacleCol(obstacles[o].get(), monsters[m].get());
         }
@@ -152,7 +156,7 @@ void World::brianMonsterCol(PhysicsObject *monster)
 
 }
 
-void World::monsterObstacleCol(PhysicsObject *o, PhysicsObject *m)
+void World::monsterObstacleCol(PhysicsObject *o, Sprite *m)
 {
     if(m->overlaps(*o)){
         double xOL = m->xOverLap(*o);
@@ -162,14 +166,12 @@ void World::monsterObstacleCol(PhysicsObject *o, PhysicsObject *m)
             //thing to right
             if(m->location.x < o->location.x){
                 m->location.x = o->left() - m->width - 1;
-                m->velocity.x = 0;
                 m->inContactR = true;
             }
             //thing to left
             if(m->location.x > o->location.x){
                 m->location.x = o->right() + 1;
                 m->inContactL = true;
-                m->velocity.x = 0;
             }
         }
         //bottom collision (or ==)
@@ -197,7 +199,7 @@ void World::monsterObstacleCol(PhysicsObject *o, PhysicsObject *m)
         if(xOL > yOL){
             if(m->location.y < o->location.y){
                 m->bottomCollision();
-
+                m->checkEdge(*o);
             }
             else if(m->location.y > o->location.y){
                 m->topCollision();

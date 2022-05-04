@@ -1,11 +1,12 @@
 #ifndef GUY_H
 #define GUY_H
 #include "graphics.h"
-#include "physicsobject.h"
+#include "sprite.h"
 
 
 
-class Guy : public PhysicsObject{
+class Guy : public Sprite
+{
 public:
     int health;
     int totalHealth;

@@ -2,14 +2,26 @@
 using namespace mssm;
 
 Slime::Slime(int totalHealth, int width, int height, Vec2d location)
-    :PhysicsObject(width, height, location), totalHealth{totalHealth}
+    :Sprite(width, height, location), totalHealth{totalHealth}
 {
-
+    velocity.x = randomTrue(0.5) ? randomDouble(1, 3) : randomDouble(-3, -1);
 }
 
 void Slime::draw(Camera &c)
 {
     c.rect(location, width, height, YELLOW, YELLOW);
+    if(inContactB){
+        c.rect({left(), bottom()}, width, 3, RED, RED);
+    }
+    if(inContactT){
+        c.rect({left(), top()}, width, 3, RED, RED);
+    }
+    if(inContactL){
+        c.rect({left(), top()}, 3, height, RED, RED);
+    }
+    if(inContactR){
+        c.rect({right(), top()}, 3, height, RED, RED);
+    }
 }
 
 void Slime::update(Camera &c)
@@ -20,7 +32,13 @@ void Slime::update(Camera &c)
     else{
         acceleration.y = gravity;
     }
-    velocity.x = 2;
+
+    if(atEdgeL){
+        velocity.x = std::abs(velocity.x);
+    }
+    else if(atEdgeR){
+        velocity.x = -std::abs(velocity.x);
+    }
     location = location + velocity;
     velocity = velocity + acceleration;
 }
@@ -54,3 +72,4 @@ void Slime::rightCollision()
     inContactR = true;
 
 }
+

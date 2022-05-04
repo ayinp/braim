@@ -3,7 +3,7 @@ using namespace mssm;
 using namespace std;
 
 Guy::Guy(int totalHealth, int width, int height, Vec2d location)
-    :PhysicsObject(width, height, location), totalHealth{totalHealth}
+    :Sprite(width, height, location), totalHealth{totalHealth}
 {
     health = totalHealth;
 }
