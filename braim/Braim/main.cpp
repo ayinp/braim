@@ -44,6 +44,7 @@ int main()
     world.obstacles.push_back(make_unique<Obstacle>(g.width(), 100, Vec2d{0, g.height()-100}));
     world.obstacles.push_back(make_unique<Obstacle>(100, 100, Vec2d{(g.width() - 100)/2, g.height()-200}));
     world.obstacles.push_back(make_unique<Obstacle>(100, 100, Vec2d{(g.width() - 100)/2 + 200, g.height()-200 - 100}));
+    world.monsters.push_back(make_unique<Slime>(3, 25, 25, Vec2d{500, 100}));
 
     while (g.draw()) {
 

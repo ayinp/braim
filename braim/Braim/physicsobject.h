@@ -25,6 +25,11 @@ public:
     virtual void draw(Camera& c) = 0;
     virtual void update(Camera& c);
 
+    virtual void topCollision();
+    virtual void bottomCollision();
+    virtual void leftCollision();
+    virtual void rightCollision();
+
     double top()const{return location.y;};
     double bottom()const{return location.y+height;};
     double left()const{return location.x;};

@@ -9,10 +9,7 @@ class World
 {
 public:
     std::vector<std::unique_ptr<PhysicsObject>> obstacles;
-//    std::vector<std::unique_ptr<PhysicsObject>> monsters;
-//    std::vector<PhysicsObject*> onScreen;
-//    std::vector<PhysicsObject*> monstersOnScreen;
-//    std::vector<PhysicsObject*> obstaclesOnScreen;
+    std::vector<std::unique_ptr<PhysicsObject>> monsters;
     Guy* brian;
 public:
     World(Guy* brian);
@@ -20,6 +17,9 @@ public:
     void draw(Camera& c);
     void update(Camera& c);
     void handleEvent(mssm::Event e);
+    void brianObstacleCol(PhysicsObject* o);
+    void brianMonsterCol(PhysicsObject* monsters);
+    void monsterObstacleCol(PhysicsObject* obstacles, PhysicsObject* monsters);
 
 };
 
