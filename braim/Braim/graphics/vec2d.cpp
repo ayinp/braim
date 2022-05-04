@@ -49,6 +49,11 @@ Vec2d operator*(Vec2d v, double s)
     return Vec2d { v.x * s, v.y * s };
 }
 
+Vec2d operator/(Vec2d v, double s)
+{
+    return Vec2d{ v.x / s, v.y / s };
+}
+
 Vec2d operator*(double s, Vec2d v)
 {
     return Vec2d { v.x * s, v.y * s };
@@ -65,5 +70,19 @@ Vec2d& operator-=(Vec2d& v, const Vec2d& other)
 {
     v.x -= other.x;
     v.y -= other.y;
+    return v;
+}
+
+Vec2d& operator/=(Vec2d& v, double s)
+{
+    v.x /= s;
+    v.y /= s;
+    return v;
+}
+
+Vec2d& operator*=(Vec2d& v, double s)
+{
+    v.x *= s;
+    v.y *= s;
     return v;
 }
