@@ -14,4 +14,8 @@ public:
     bool   randomTrue(double pct);
 };
 
+int    randomInt(int minVal, int maxVal);
+double randomDouble(double minVal, double maxVal);
+bool   randomTrue(double pct);
+
 #endif // RAND_H

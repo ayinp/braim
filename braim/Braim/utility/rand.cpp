@@ -1,6 +1,27 @@
 #include "rand.h"
 #include <chrono>
 
+
+
+int randomInt(int minVal, int maxVal)
+{
+    static Rand rnd;
+    return rnd.randomInt(minVal, maxVal);
+}
+
+double randomDouble(double minVal, double maxVal)
+{
+    static Rand rnd;
+    return rnd.randomDouble(minVal, maxVal);
+}
+
+bool randomTrue(double pct)
+{
+    static Rand rnd;
+    return rnd.randomTrue(pct);
+}
+
+
 Rand::Rand()
     : mersenneTwister(randDevice())
 {
