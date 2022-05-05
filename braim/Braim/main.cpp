@@ -53,6 +53,10 @@ int main()
         world.draw(c);
         world.update(c);
 
+        g.cout << world.monsters[0]->velocity.x << endl;
+        g.cout << world.monsters[0]->atEdgeL << endl;
+        g.cout << world.monsters[0]->atEdgeR << endl;
+
         if (g.isKeyPressed(Key::ESC)) {
             break;
         }

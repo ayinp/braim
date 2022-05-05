@@ -1,5 +1,8 @@
 #include "slime.h"
+#include <iomanip>
+#include <iostream>
 using namespace mssm;
+using namespace std;
 
 Slime::Slime(int totalHealth, int width, int height, Vec2d location)
     :Sprite(width, height, location), totalHealth{totalHealth}
@@ -62,13 +65,15 @@ void Slime::bottomCollision()
 void Slime::leftCollision()
 {
 
-    velocity.x = -velocity.x;
+    cout << "wall" << endl;
+    velocity.x = std::abs(velocity.x);
     inContactL = true;
 }
 
 void Slime::rightCollision()
 {
-    velocity.x = -velocity.x;
+    cout << "wall" << endl;
+    velocity.x = -std::abs(velocity.x);
     inContactR = true;
 
 }
