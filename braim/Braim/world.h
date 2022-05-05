@@ -18,8 +18,8 @@ public:
     void update(Camera& c);
     void handleEvent(mssm::Event e);
     void brianObstacleCol(PhysicsObject* o);
-    void brianMonsterCol(PhysicsObject* monsters);
-    void monsterObstacleCol(PhysicsObject* obstacles, Sprite* monsters);
+    void brianMonsterCol(PhysicsObject* m);
+    void monsterObstacleCol(PhysicsObject* o, Sprite* m);
 
 };
 

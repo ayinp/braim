@@ -55,11 +55,5 @@ void Sprite::checkEdge(const PhysicsObject& other)
         else if(location.x > other.location.x){
             atEdgeR = true;
         }
-        else{
-            atEdgeL = false;
-            atEdgeR = false;
-        }
-
-
     }
 }

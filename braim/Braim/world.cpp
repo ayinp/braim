@@ -42,6 +42,8 @@ void World::collisions()
         monsters[m]->inContactT = false;
         monsters[m]->inContactR = false;
         monsters[m]->inContactL = false;
+        monsters[m]->atEdgeL = false;
+        monsters[m]->atEdgeR = false;
         for(int o = 0; o < obstacles.size(); o++){
             monsterObstacleCol(obstacles[o].get(), monsters[m].get());
         }
@@ -151,7 +153,7 @@ void World::brianObstacleCol(PhysicsObject* o)
 
 }
 
-void World::brianMonsterCol(PhysicsObject *monster)
+void World::brianMonsterCol(PhysicsObject *m)
 {
 
 }

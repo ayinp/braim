@@ -39,7 +39,7 @@ void Slime::update(Camera &c)
     if(atEdgeL){
         velocity.x = std::abs(velocity.x);
     }
-    else if(atEdgeR){
+    if(atEdgeR){
         velocity.x = -std::abs(velocity.x);
     }
     location = location + velocity;
