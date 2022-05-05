@@ -32,6 +32,46 @@ using namespace mssm;
 //void   text(Vec2d pos, double size, const std::string& str, Color textColor = WHITE, HAlign hAlign = HAlign::left, VAlign vAlign = VAlign::baseline);
 
 
+/*
+    Hamlin Notes:
+
+    1. Pixel perfect integer math:   Draw some pictures, maybe on graph paper, defining
+       _exactly_ what is meant by width, height, top, bottom, etc.  Make sure your
+       helper methods like bottom/top/left/right follow those conventions.   For example,
+       if left gives you position.x, which is "on" the rectangle then maybe right should
+       give you position.x + width - 1 so that it gives you a location that is also "on"
+       the rectangle.    Maybe change some of the helper functions so they return integer
+       values instead of double.    The idea here is to be able to more clearly define
+       what "touching" vs "overlapping" means, rather than adjusting that padding until
+       you find something that hopefully works.    Ideally, touching would end up meaning
+       exactly next to another object, with zero space between and zero overlap.
+
+       Clearly defining things like this, and then making sure your code carefully matches
+       those definitions will hopefully reduce confusion/ambiguity/weird bugs
+
+
+       Maybe collision should then be defined (if it isn't already) as non-zero overlap.
+       When a collision occurs, and you "shift" the mobile object to eliminate the overlap,
+       make sure that you move it so that it is perfectly touching
+
+    2. Right now, changing velocities and accelerations in response to collisions and contact
+      feels a little too spread out throughout the code.  It would be easier to understand
+      and debug if the reactions to collisions and contacts could be handled in fewer spots.
+      Ideally, all the collisions and contact states could be figured out first, and then
+      the rules could be applied for how those collisions and contacts affect the motion.
+
+    3. brianObstacleCol and monsterObstacleCol share a lot of code. Maybe that can be
+       refactored so the parts that differ between those two processes could be pulled out
+       and abstracted, and the parts that are the same could become a single function.
+
+
+
+
+
+
+
+*/
+
 
 int main()
 {
