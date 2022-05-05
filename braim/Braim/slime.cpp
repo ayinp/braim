@@ -7,7 +7,8 @@ using namespace std;
 Slime::Slime(int totalHealth, int width, int height, Vec2d location)
     :Sprite(width, height, location), totalHealth{totalHealth}
 {
-    velocity.x = randomTrue(0.5) ? randomDouble(1, 3) : randomDouble(-3, -1);
+    velocity.x = -1.69; //randomTrue(0.5) ? randomDouble(1, 3) : randomDouble(-3, -1);
+    //-1.69 makes him stuck in the wall :(
 }
 
 void Slime::draw(Camera &c)
@@ -27,7 +28,7 @@ void Slime::draw(Camera &c)
     }
 }
 
-void Slime::update(Camera &c)
+void Slime::update(Camera& )
 {
     if(inContactB || velocity.y >= maxVelGrav ){
         acceleration.y = 0;

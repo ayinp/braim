@@ -48,7 +48,7 @@ double Sprite::yOverLap(const PhysicsObject &other, double margin) const
 
 void Sprite::checkEdge(const PhysicsObject& other)
 {
-    if(xOverLap(other) < width){
+    if(xOverLap(other) < width-0.001){
         if(location.x < other.location.x){
             atEdgeL = true;
         }
