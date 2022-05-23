@@ -13,10 +13,15 @@ public:
     Guy* brian;
 public:
     World(Guy* brian);
-    void collisions();
+    void contact();
     void draw(Camera& c);
     void update(Camera& c);
     void handleEvent(mssm::Event e);
+
+    void contact(PhysicsObject* ob1, PhysicsObject* ob2);
+    void collision(PhysicsObject* ob1, PhysicsObject* ob2);
+
+
     void brianObstacleCol(PhysicsObject* o);
     void brianMonsterCol(PhysicsObject* m);
     void monsterObstacleCol(PhysicsObject* o, Sprite* m);

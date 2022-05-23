@@ -27,7 +27,7 @@ void Sprite::rightCollision()
 
 }
 
-bool Sprite::overlaps(const PhysicsObject &other, double margin) const
+bool Sprite::overlaps(const PhysicsObject &other, int margin) const
 {
     if(right() + margin >= other.left() && left() - margin <= other.right() && bottom() + margin >= other.top() && top() - margin <= other.bottom()){
         return true;
@@ -36,12 +36,12 @@ bool Sprite::overlaps(const PhysicsObject &other, double margin) const
 
 }
 
-double Sprite::xOverLap(const PhysicsObject &other, double margin) const
+int Sprite::xOverLap(const PhysicsObject &other, int margin) const
 {
     return min(right()-margin, other.right()) - max(left()+margin, other.left());
 }
 
-double Sprite::yOverLap(const PhysicsObject &other, double margin) const
+int Sprite::yOverLap(const PhysicsObject &other, int margin) const
 {
     return min(bottom()-margin, other.bottom()) - max(top()+margin, other.top());
 }

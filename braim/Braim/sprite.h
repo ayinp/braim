@@ -19,9 +19,9 @@ public:
     virtual void bottomCollision();
     virtual void leftCollision();
     virtual void rightCollision();
-    bool overlaps(const PhysicsObject& other, double margin=0)const;
-    double xOverLap(const PhysicsObject& other, double margin=0)const;
-    double yOverLap(const PhysicsObject& other, double margin=0)const;
+    bool overlaps(const PhysicsObject& other, int margin=0)const;
+    int xOverLap(const PhysicsObject& other, int margin=0)const;
+    int yOverLap(const PhysicsObject& other, int margin=0)const;
     void checkEdge(const PhysicsObject& other);
 };
 

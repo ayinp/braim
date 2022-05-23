@@ -7,8 +7,7 @@ using namespace std;
 Slime::Slime(int totalHealth, int width, int height, Vec2d location)
     :Sprite(width, height, location), totalHealth{totalHealth}
 {
-    velocity.x = -1.69; //randomTrue(0.5) ? randomDouble(1, 3) : randomDouble(-3, -1);
-    //-1.69 makes him stuck in the wall :(
+    velocity.x = -1.69; /*randomTrue(0.5) ? randomDouble(1, 3) : randomDouble(-3, -1);*/
 }
 
 void Slime::draw(Camera &c)
@@ -68,6 +67,7 @@ void Slime::leftCollision()
 
     cout << "wall" << endl;
     velocity.x = std::abs(velocity.x);
+
     inContactL = true;
 }
 

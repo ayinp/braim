@@ -20,9 +20,9 @@ World::World(Guy* brian)
 // will have to store last location before stopping drawing and math so can be redrawn if closer
 // decide if theyre in the draw and calculate vector by looking at their last/starting location and seeing if any of them will be on screen
 
-void World::collisions()
+void World::contact()
 {
-    //check if brian collides with obstacles
+    //check if brian contacts obstacles
     brian->inContactB = false;
     brian->inContactT = false;
     brian->inContactR = false;
@@ -69,7 +69,7 @@ void World::draw(Camera& c)
 void World::update(Camera& c)
 {
     // call method to check whats onscreen and update the onscreen vectors
-    collisions();
+    contact();
     brian->update(c);
     for(int i = 0; i < obstacles.size(); i++){
         obstacles[i]->update(c);
@@ -160,13 +160,45 @@ void World::brianMonsterCol(PhysicsObject *m)
 
 void World::monsterObstacleCol(PhysicsObject *o, Sprite *m)
 {
-    if(m->overlaps(*o)){
+    //contact
+    if(m->overlaps(*o, 1)){
+
+        double xOL = m->xOverLap(*o);
+        double yOL = m->yOverLap(*o);
+        //bottom or top collision
+        if(xOL > yOL){
+            if(m->location.y < o->location.y){
+                m->bottomCollision();
+                m->checkEdge(*o);
+            }
+            else if(m->location.y > o->location.y){
+                m->topCollision();
+            }
+
+        }
+        //left or right collision (or ==)
+        else{
+            //thing to right
+            if(m->location.x < o->location.x){
+                cout << "wall before" << endl;
+                m->rightCollision();
+            }
+            //thing to left
+            if(m->location.x > o->location.x){
+                m->leftCollision();
+            }
+
+        }
+    }
+    //overlap
+    else if(m->overlaps(*o)){
         double xOL = m->xOverLap(*o);
         double yOL = m->yOverLap(*o);
         //side collision
         if(xOL < yOL){
             //thing to right
             if(m->location.x < o->location.x){
+                cout << "wall before before" << endl;
                 m->location.x = o->left() - m->width - 1;
                 m->inContactR = true;
             }
@@ -192,33 +224,5 @@ void World::monsterObstacleCol(PhysicsObject *o, Sprite *m)
             }
         }
     }
-    //contact
-    else if(m->overlaps(*o, 1.1)){
 
-        double xOL = m->xOverLap(*o);
-        double yOL = m->yOverLap(*o);
-        //bottom or top collision
-        if(xOL > yOL){
-            if(m->location.y < o->location.y){
-                m->bottomCollision();
-                m->checkEdge(*o);
-            }
-            else if(m->location.y > o->location.y){
-                m->topCollision();
-            }
-
-        }
-        //left or right collision (or ==)
-        else{
-            //thing to right
-            if(m->location.x < o->location.x){
-                m->rightCollision();
-            }
-            //thing to left
-            if(m->location.x > o->location.x){
-                m->leftCollision();
-            }
-
-        }
-    }
 }

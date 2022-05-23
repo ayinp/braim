@@ -21,10 +21,10 @@ public:
     virtual void draw(Camera& c) = 0;
     virtual void update(Camera& c);
 
-    double top()const{return location.y;};
-    double bottom()const{return location.y+height;};
-    double left()const{return location.x;};
-    double right()const{return location.x+width;};
+    int top()const{return location.y;};
+    int bottom()const{return location.y+height-1;};
+    int left()const{return location.x;};
+    int right()const{return location.x+width-1;};
 
 
 };
