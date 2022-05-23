@@ -65,13 +65,13 @@ void loop() {
   float y = CircuitPlayground.motionY();
   float z = CircuitPlayground.motionZ();
 
-  for(int i = 0; i < 10; i++){
-     if(z > 0){
-     CircuitPlayground.setPixelColor(i, brightness(i, x, y), 0, brightness(i, x, y)/2);
-     }
-     else{
-      CircuitPlayground.setPixelColor(i, brightness(i, x, y), brightness(i, x, y)/2, 0);
-     }
+  for (int i = 0; i < 10; i++) {
+    if (z > 0) {
+      CircuitPlayground.setPixelColor(i, brightness(i, x, y), 0, brightness(i, x, y) / 2);
+    }
+    else {
+      CircuitPlayground.setPixelColor(i, brightness(i, x, y), brightness(i, x, y) / 2, 0);
+    }
   }
 
 }
