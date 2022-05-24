@@ -1,5 +1,6 @@
 #include <Adafruit_CircuitPlayground.h>
 
+
 //Reginald
 
 //0 = {-25, 46}
@@ -12,8 +13,16 @@
 //7 = {51, 0}
 //8 = {44, 26}
 //9 = {25, 46}
+bool red;
+bool blue;
+bool green;
+
+unsigned int timer = millis() + 2000;
 
 void setup() {
+  red = false;
+  blue = false;
+  green = true;
   CircuitPlayground.begin();
   Serial.begin(9600);
 }
@@ -60,18 +69,42 @@ void setPixel(int num) {
   }
 }
 
+void changeColors(){
+  red = !red;
+  blue = !blue;
+  green = !green;
+
+}
+
 void loop() {
   float x = CircuitPlayground.motionX();
   float y = CircuitPlayground.motionY();
   float z = CircuitPlayground.motionZ();
 
+
+
+
   for (int i = 0; i < 10; i++) {
-    if (z > 0) {
-      CircuitPlayground.setPixelColor(i, brightness(i, x, y), 0, brightness(i, x, y) / 2);
+    if (blue) {
+      CircuitPlayground.setPixelColor(i, 0, 0, brightness(i, x, y));
     }
-    else {
-      CircuitPlayground.setPixelColor(i, brightness(i, x, y), brightness(i, x, y) / 2, 0);
+    else if ( green) {
+      CircuitPlayground.setPixelColor(i, 0, brightness(i, x, y), 0);
     }
+    //    if (z > 0) {
+    //      CircuitPlayground.setPixelColor(i, brightness(i, x, y), 0, brightness(i, x, y) / 2);
+    //    }
+    //    else {
+    //      CircuitPlayground.setPixelColor(i, brightness(i, x, y), brightness(i, x, y) / 2, 0);
+    //    }
   }
+
+ if(millis() > timer){
+    //run myRoutine every 2 seconds
+    changeColors();
+    timer = millis() + 2000;
+  }
+
+
 
 }
