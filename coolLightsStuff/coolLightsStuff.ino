@@ -1,5 +1,5 @@
 #include <Adafruit_CircuitPlayground.h>
-
+#include <Ewma.h>
 
 //Reginald
 
@@ -24,6 +24,7 @@ void setup() {
   blue = false;
   green = true;
   CircuitPlayground.begin();
+  CircuitPlayground.setBrightness(255);
   Serial.begin(9600);
 }
 
@@ -76,10 +77,16 @@ void changeColors(){
 
 }
 
+constexpr float filterVal = 0.05;
+
+Ewma filterX(filterVal);
+Ewma filterY(filterVal);
+Ewma filterZ(filterVal);
+
 void loop() {
-  float x = CircuitPlayground.motionX();
-  float y = CircuitPlayground.motionY();
-  float z = CircuitPlayground.motionZ();
+  float x = filterX.filter(CircuitPlayground.motionX());
+  float y = filterY.filter(CircuitPlayground.motionY());
+  float z = filterZ.filter(CircuitPlayground.motionZ());
 
 
 
